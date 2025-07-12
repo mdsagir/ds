@@ -43,6 +43,8 @@ class Stack:
 class ValidParathesis:
     @staticmethod
     def check_valida_parathesis(string: str) -> bool:
+        if len(string) % 2 != 0:
+            return False
         stack = Stack(10)
         for s in string:
             if s == '(' or s == '{' or s == '[':
@@ -64,5 +66,5 @@ class ValidParathesis:
         return stack.stack_size() == 0
 
 
-status: bool = ValidParathesis.check_valida_parathesis("{}")
+status: bool = ValidParathesis.check_valida_parathesis("([]")
 print(status)
