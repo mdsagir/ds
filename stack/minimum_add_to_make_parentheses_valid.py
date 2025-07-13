@@ -1,5 +1,3 @@
-import math
-from tokenize import endpats
 from typing import List
 
 
@@ -45,47 +43,38 @@ class Stack:
         return self.top + 1
 
 
-class BracketBalancing:
+class Sol:
     @staticmethod
-    def bracket_balancing(string: str) -> int:
-        if len(string) % 2 != 0:
-            return -1
-        stack = Stack(10)
+    def minimum_paratheses(string: str) -> int:
+        stack = Stack(15)
         for s in string:
-            if s == '{':
+            if s == '(':
                 stack.push(s)
             else:
-                if not stack.is_empty() and stack.peek() == '{':
+                if not stack.is_empty() and stack.peek() == '(':
                     stack.pop()
                 else:
                     stack.push(s)
-        start: int = 0
-        end: int = 0
+        count: int = 0
         while not stack.is_empty():
-            pop: str = stack.pop()
-            if pop == '{':
-                start += 1
-            else:
-                end += 1
-        res: int = math.ceil(start / 2) + math.ceil(end / 2)
-        return res
+            stack.pop()
+            count += 1
+        return count
 
     @staticmethod
     def optimize(string: str) -> int:
         start: int = 0
         end: int = 0
         for s in string:
-            if s == '{':
+            if s == '(':
                 start += 1
             else:
                 if not start == 0:
                     start -= 1
                 else:
                     end += 1
-
-        res: int = math.ceil(start / 2) + math.ceil(end / 1)
-        return res
+        return start + end
 
 
-res: int = BracketBalancing.optimize("}{{}}{{{")
-print(res)
+res: int = Sol.minimum_paratheses(")(()()")
+print(f"Results of the programme is {res}")

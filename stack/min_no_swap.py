@@ -1,5 +1,3 @@
-import math
-from tokenize import endpats
 from typing import List
 
 
@@ -45,47 +43,26 @@ class Stack:
         return self.top + 1
 
 
-class BracketBalancing:
+class MinSwap:
     @staticmethod
-    def bracket_balancing(string: str) -> int:
-        if len(string) % 2 != 0:
+    def min_swap(string: str) -> int:
+        if not len(string) % 2 == 0:
             return -1
-        stack = Stack(10)
+        open: int = 0
+        close: int = 0
         for s in string:
-            if s == '{':
-                stack.push(s)
+            if s == '[':
+                open += 1
             else:
-                if not stack.is_empty() and stack.peek() == '{':
-                    stack.pop()
+                if not open == 0:
+                    open -= 1
                 else:
-                    stack.push(s)
-        start: int = 0
-        end: int = 0
-        while not stack.is_empty():
-            pop: str = stack.pop()
-            if pop == '{':
-                start += 1
-            else:
-                end += 1
-        res: int = math.ceil(start / 2) + math.ceil(end / 2)
-        return res
+                    close += 1
+        open_close: int = (open + close) / 2
+        res: int = int((open_close + 1) / 2)
 
-    @staticmethod
-    def optimize(string: str) -> int:
-        start: int = 0
-        end: int = 0
-        for s in string:
-            if s == '{':
-                start += 1
-            else:
-                if not start == 0:
-                    start -= 1
-                else:
-                    end += 1
-
-        res: int = math.ceil(start / 2) + math.ceil(end / 1)
         return res
 
 
-res: int = BracketBalancing.optimize("}{{}}{{{")
-print(res)
+r: int = MinSwap.min_swap("]]]]]][[[[[[")
+print(r)
