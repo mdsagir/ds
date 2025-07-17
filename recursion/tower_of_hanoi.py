@@ -9,4 +9,4 @@ def tower_of_hanoi(disk: int, source: str, helper: str, destination: str) -> Non
     tower_of_hanoi(disk - 1, helper, source, destination)
 
 
-tower_of_hanoi(3, "SOURCE", "HELPER", "DESTINATION")
+tower_of_hanoi(4, "SOURCE", "HELPER", "DESTINATION")
