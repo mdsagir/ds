@@ -142,6 +142,77 @@ def selection_sort(arr):
         arr[i], arr[min_index] = arr[min_index], arr[i]
 
 
-int_arr = [1, 0, 2, 6, 5, 3,4]
-selection_sort(int_arr)
-print(int_arr)
+def display_star(r=4, c=0):
+    if r == 0:
+        return
+    if r > c:
+        print("*", end=" ")
+        display_star(r, c + 1)
+    else:
+        print()
+        display_star(r - 1, 0)
+
+
+def merge_sort(arr, start, end):
+    if start == end:
+        return
+    mid = start + (end - start) // 2
+    # left side
+    merge_sort(arr, start, mid)
+    # right side
+    merge_sort(arr, mid + 1, end)
+    merge_in_place(arr, start, mid, end)
+
+
+def merge_in_place(arr, start, mid, end):
+    left = start
+    right = mid + 1
+    merge = []
+
+    while left <= mid and right <= end:
+        if arr[left] <= arr[right]:
+            merge.append(arr[left])
+            left += 1
+        else:
+            merge.append(arr[right])
+            right += 1
+    while left <= mid:
+        merge.append(arr[left])
+        left += 1
+    while right <= end:
+        merge.append(arr[right])
+        right += 1
+    for m in range(len(merge)):
+        arr[start + m] = merge[m]
+
+
+in_arr_ = [3, 2, 4, 1, 5, 9]
+merge_sort(in_arr_, 0, len(in_arr_) - 1)
+print(in_arr_)
+
+
+def two_sorted_arr(arr1: List[int], arr2: List[int]) -> List[int]:
+    i: int = 0
+    j: int = 0
+    merge: List[int] = []
+
+    while i < len(arr1) and j < len(arr2):
+        if arr1[i] <= arr2[j]:
+            merge.append(arr1[i])
+            i += 1
+        else:
+            merge.append(arr2[j])
+            j += 1
+
+    while i < len(arr1):
+        merge.append(arr1[i])
+        i += 1
+    while j < len(arr2):
+        merge.append(arr2[j])
+        j += 1
+    return merge
+
+# i_arr1 = [1, 2, 3, 4]
+# j_arr2 = [5, 6, 7, 8]
+# r_arr: List[int] = two_sorted_arr(i_arr1, j_arr2)
+# print(r_arr)
